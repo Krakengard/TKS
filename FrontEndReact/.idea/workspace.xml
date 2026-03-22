@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="89969ae3-a187-49a7-88d0-de5733c5534f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/AllocationForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/CustomerDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/RegisterForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/UserEditForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/utils/validation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/config/DataInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/controller/AllocationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/controller/ResourceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/Administrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/Allocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/Resource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/ResourceManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/repository/AllocationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/repository/ResourceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/service/AllocationManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/service/ResourceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rental/service/UserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/RentalWebApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/config/RestClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/controller/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/controller/RentalWebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/dto/AllocationForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/dto/CustomerRegistrationForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/service/RentalRestClientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/rentalweb/utils/CustomValidationUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Static/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/allocations-list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/create-allocation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/customer-dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/customer-login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/rental/RentalApplicationIntegrationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/rental/controller/AllocationControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/rental/controller/ResourceControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/rental/controller/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/rental/testconfig/TestConfig.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="package-info" />
+        <option value="Class" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="35WeP10ZOfeNMjY9kIvxvJVkzVa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JUnit.AllocationControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RentalApplicationIntegrationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RentalApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ResourceControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SimpleIntegrationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.allocations-list.html.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RentalApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.RentalWebApplication.executor&quot;: &quot;Run&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Adam/Desktop/ZAdanie/PAS_LAST/Rental_React&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Adam\Desktop\ZAdanie\PAS\Renatl_Zad\Rental_web_poprawione\frontend\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.RentalApplication">
+    <configuration name="RentalApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Rental" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.rental.RentalApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RentalWebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="RentalWeb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.rentalweb.RentalWebApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89969ae3-a187-49a7-88d0-de5733c5534f" name="Changes" comment="" />
+      <created>1763230228522</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763230228522</updated>
+      <workItem from="1763230229569" duration="851000" />
+      <workItem from="1763231127035" duration="213000" />
+      <workItem from="1763231349040" duration="2558000" />
+      <workItem from="1763234182295" duration="138000" />
+      <workItem from="1763234328079" duration="8690000" />
+      <workItem from="1763300809455" duration="11000" />
+      <workItem from="1763375548767" duration="3616000" />
+      <workItem from="1763382906275" duration="2002000" />
+      <workItem from="1763387201564" duration="1278000" />
+      <workItem from="1763925434404" duration="1074000" />
+      <workItem from="1763936690118" duration="4145000" />
+      <workItem from="1763949481259" duration="8042000" />
+      <workItem from="1764581650711" duration="1807000" />
+      <workItem from="1764583538497" duration="4332000" />
+      <workItem from="1764592097733" duration="613000" />
+      <workItem from="1765194953100" duration="621000" />
+      <workItem from="1765797008731" duration="3661000" />
+      <workItem from="1765803015021" duration="3179000" />
+      <workItem from="1767754150234" duration="4543000" />
+      <workItem from="1767786544616" duration="6000" />
+      <workItem from="1767787007843" duration="6337000" />
+      <workItem from="1768227781115" duration="1654000" />
+      <workItem from="1768796604720" duration="5919000" />
+      <workItem from="1768940639225" duration="111000" />
+      <workItem from="1769402497488" duration="4007000" />
+      <workItem from="1769421653422" duration="2309000" />
+      <workItem from="1769442434191" duration="3195000" />
+      <workItem from="1769687407290" duration="8000" />
+      <workItem from="1770048589597" duration="3449000" />
+      <workItem from="1770226079475" duration="3131000" />
+      <workItem from="1770284631156" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
