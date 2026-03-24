@@ -1,23 +1,20 @@
-package org.example.rental.controller;
+package org.example.rental.adapters.rest.controller;
 
-import org.example.rental.exception.BadRequestException;
-import org.example.rental.exception.ConflictException;
-import org.example.rental.exception.ResourceNotFoundException;
-import org.example.rental.exception.UnauthorizedException;
-import org.example.rental.model.Allocation;
-import org.example.rental.model.User;
-import org.example.rental.repository.AllocationRepository;
-import org.example.rental.service.AllocationManager;
-import org.example.rental.service.UserManager;
+import org.example.rental.domain.exception.BadRequestException;
+import org.example.rental.domain.exception.ConflictException;
+import org.example.rental.domain.exception.ResourceNotFoundException;
+import org.example.rental.domain.exception.UnauthorizedException;
+import org.example.rental.domain.model.Allocation;
+import org.example.rental.domain.model.User;
+import org.example.rental.port.in.AllocationUseCase;
+import org.example.rental.port.in.UserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -25,22 +22,19 @@ import java.util.UUID;
 public class AllocationController {
 
     @Autowired
-    private AllocationManager allocationManager;
+    private AllocationUseCase allocationUseCase;
 
     @Autowired
-    private AllocationRepository allocationRepository;
-
-    @Autowired
-    private UserManager userManager;  // Dodaj ten autowired
+    private UserUseCase userUseCase;
 
     @GetMapping
     public List<Allocation> getAllAllocations() {
-        return allocationRepository.findAll();
+        return allocationUseCase.getAllAllocations();
     }
 
     @GetMapping("/{id}")
     public Allocation getAllocationById(@PathVariable UUID id) {
-        return allocationRepository.findById(id)
+        return allocationUseCase.getAllocationById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Allocation not found with id: " + id));
     }
 
@@ -55,36 +49,27 @@ public class AllocationController {
 
         String loggedInUsername = authentication.getName();
 
-        User requestedCustomer = userManager.getUserById(customerId)
+        User requestedCustomer = userUseCase.getUserById(customerId)
                 .orElseThrow(() -> new BadRequestException("Customer not found with id: " + customerId));
 
         if (!requestedCustomer.getLogin().equals(loggedInUsername)) {
             boolean isAdminOrManager = authentication.getAuthorities().stream()
                     .anyMatch(auth ->
                             auth.getAuthority().equals("ROLE_ADMIN") ||
-                                    auth.getAuthority().equals("ROLE_MANAGER")
-                    );
+                                    auth.getAuthority().equals("ROLE_MANAGER"));
 
             if (!isAdminOrManager) {
                 throw new UnauthorizedException(
                         "You can only create allocations for yourself. " +
                                 "Logged in as: " + loggedInUsername + ", " +
-                                "Trying to create for: " + requestedCustomer.getLogin()
-                );
-            }
-        }
-
-        if (idempotencyKey != null) {
-            Optional<Allocation> existingAllocation = allocationRepository.findByIdempotencyKey(idempotencyKey);
-            if (existingAllocation.isPresent()) {
-                throw new ConflictException(
-                        "Allocation with this idempotency key already exists: " + existingAllocation.get().getId()
-                );
+                                "Trying to create for: " + requestedCustomer.getLogin());
             }
         }
 
         try {
-            return allocationManager.createAllocation(customerId, resourceId, startTime, endTime, idempotencyKey);
+            // Sprawdzanie idempotency key i logika biznesowa — w serwisie, nie tutaj
+            return allocationUseCase.createAllocation(
+                    customerId, resourceId, startTime, endTime, idempotencyKey);
         } catch (IllegalArgumentException | IllegalStateException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -93,7 +78,7 @@ public class AllocationController {
     @PostMapping("/{id}/complete")
     public void completeAllocation(@PathVariable UUID id) {
         try {
-            allocationManager.completeAllocation(id);
+            allocationUseCase.completeAllocation(id);
         } catch (IllegalArgumentException e) {
             throw new ResourceNotFoundException("Allocation not found with id: " + id);
         }
@@ -102,7 +87,7 @@ public class AllocationController {
     @DeleteMapping("/{id}")
     public void deleteAllocation(@PathVariable UUID id) {
         try {
-            allocationManager.deleteAllocation(id);
+            allocationUseCase.deleteAllocation(id);
         } catch (IllegalArgumentException e) {
             throw new ResourceNotFoundException("Allocation not found with id: " + id);
         } catch (IllegalStateException e) {
@@ -112,21 +97,21 @@ public class AllocationController {
 
     @GetMapping("/customer/{customerId}/past")
     public List<Allocation> getPastAllocationsByCustomer(@PathVariable UUID customerId) {
-        return allocationManager.getPastAllocationsByCustomer(customerId);
+        return allocationUseCase.getPastAllocationsByCustomer(customerId);
     }
 
     @GetMapping("/customer/{customerId}/current")
     public List<Allocation> getCurrentAllocationsByCustomer(@PathVariable UUID customerId) {
-        return allocationManager.getCurrentAllocationsByCustomer(customerId);
+        return allocationUseCase.getCurrentAllocationsByCustomer(customerId);
     }
 
     @GetMapping("/resource/{resourceId}/past")
     public List<Allocation> getPastAllocationsByResource(@PathVariable UUID resourceId) {
-        return allocationManager.getPastAllocationsByResource(resourceId);
+        return allocationUseCase.getPastAllocationsByResource(resourceId);
     }
 
     @GetMapping("/resource/{resourceId}/current")
     public List<Allocation> getCurrentAllocationsByResource(@PathVariable UUID resourceId) {
-        return allocationManager.getCurrentAllocationsByResource(resourceId);
+        return allocationUseCase.getCurrentAllocationsByResource(resourceId);
     }
 }

@@ -55,12 +55,23 @@ public abstract class User  {
 
 
 
-    @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id.equals(user.id);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return this.id != null && this.id.equals(user.getId());
     }
 
     @Override
