@@ -1,5 +1,4 @@
-package org.example.rental.model;
-
+package org.example.rental.domain.model;
 import java.util.UUID;
 
 public class Resource {

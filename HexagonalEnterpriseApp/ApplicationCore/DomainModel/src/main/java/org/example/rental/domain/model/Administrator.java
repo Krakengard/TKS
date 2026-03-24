@@ -1,4 +1,4 @@
-package org.example.rental.model;
+package org.example.rental.domain.model;
 
 public class Administrator extends User {
     private String department;

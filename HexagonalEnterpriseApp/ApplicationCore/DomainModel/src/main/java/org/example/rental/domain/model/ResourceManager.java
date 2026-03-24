@@ -1,7 +1,7 @@
-package org.example.rental.model;
+package org.example.rental.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class ResourceManager extends User {
     private String managedResourceType;
@@ -11,10 +11,10 @@ public class ResourceManager extends User {
     }
 
     @JsonCreator
-    public ResourceManager(@JsonProperty("login") String login,
-                           @JsonProperty("name") String name,
-                           @JsonProperty("email") String email,
-                           @JsonProperty("managedResourceType") String managedResourceType) {
+    public ResourceManager( String login,
+                           String name,
+                           String email,
+                           String managedResourceType) {
         super(login, name, email);
         this.managedResourceType = managedResourceType;
     }

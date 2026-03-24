@@ -1,4 +1,4 @@
-package org.example.rental.model;
+package org.example.rental.domain.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
