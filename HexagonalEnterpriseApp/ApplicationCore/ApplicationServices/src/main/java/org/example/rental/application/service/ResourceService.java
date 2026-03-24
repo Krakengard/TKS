@@ -1,4 +1,4 @@
-package org.example.rental.service;
+package org.example.rental.application.service;
 
 import org.example.rental.model.Resource;
 import org.example.rental.repository.AllocationRepository;

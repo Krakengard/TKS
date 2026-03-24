@@ -9,18 +9,17 @@
         <groupId>org.example</groupId>
         <artifactId>HexagonalEnterpriseApp</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>ApplicationCore</artifactId>
+    <artifactId>Adapters</artifactId>
     <packaging>pom</packaging>
 
-    <name>ApplicationCore</name>
+    <name>Adapters</name>
 
     <modules>
-        <module>DomainModel</module>
-        <module>ApplicationPorts</module>
-        <module>ApplicationServices</module>
+        <module>RepositoriesAdapters</module>
+        <module>RestAdapter</module>
+        <!--<module>SecurityAdapter</module>-->
     </modules>
 
 </project>

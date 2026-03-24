@@ -1,9 +1,9 @@
-package org.example.rental.service;
+package org.example.rental.application.service;
 
-import org.example.rental.model.Allocation;
-import org.example.rental.model.Customer;
-import org.example.rental.model.Resource;
-import org.example.rental.model.User;
+import org.example.rental.domain.model.Allocation;
+import org.example.rental.domain.model.Customer;
+import org.example.rental.domain.model.Resource;
+import org.example.rental.domain.model.User;
 import org.example.rental.repository.AllocationRepository;
 import org.example.rental.repository.UserRepository;
 import org.example.rental.repository.ResourceRepository;

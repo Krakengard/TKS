@@ -1,6 +1,6 @@
 package org.example.rental.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+
 
 
 public class ResourceManager extends User {
@@ -10,7 +10,7 @@ public class ResourceManager extends User {
         super();
     }
 
-    @JsonCreator
+
     public ResourceManager( String login,
                            String name,
                            String email,

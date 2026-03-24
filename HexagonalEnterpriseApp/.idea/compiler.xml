@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ApplicationPorts" />
+        <module name="ApplicationServices" />
+        <module name="DomainModel" />
+        <module name="Applications" />
+        <module name="RepositoriesAdapters" />
+        <module name="RestAdapter" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApplicationPorts" options="-parameters" />
+      <module name="ApplicationServices" options="-parameters" />
+      <module name="Applications" options="-parameters" />
+      <module name="DomainModel" options="-parameters" />
+      <module name="RentalWeb" options="" />
+      <module name="RepositoriesAdapters" options="-parameters" />
+      <module name="RestAdapter" options="-parameters" />
+    </option>
+  </component>
+</project>

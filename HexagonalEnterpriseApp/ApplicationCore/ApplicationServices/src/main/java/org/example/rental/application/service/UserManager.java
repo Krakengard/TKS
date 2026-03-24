@@ -1,8 +1,8 @@
-package org.example.rental.service;
+package org.example.rental.application.service;
 
-import org.example.rental.exception.BadRequestException;
-import org.example.rental.exception.ResourceNotFoundException;
-import org.example.rental.model.*;
+import org.example.rental.domain.exception.BadRequestException;
+import org.example.rental.domain.exception.ResourceNotFoundException;
+import org.example.rental.domain.model.*;
 import org.example.rental.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
