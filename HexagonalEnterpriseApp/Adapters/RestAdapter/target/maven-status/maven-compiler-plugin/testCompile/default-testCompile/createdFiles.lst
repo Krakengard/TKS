@@ -1,0 +1,6 @@
+org\example\rental\adapters\rest\controller\AuthControllerTest.class
+org\example\rental\adapters\rest\controller\UserControllerTest$UserMixin.class
+org\example\rental\adapters\rest\controller\ResourceControllerTest.class
+org\example\rental\adapters\rest\controller\AllocationControllerTest.class
+org\example\rental\adapters\rest\RestAdapterTestApplication.class
+org\example\rental\adapters\rest\controller\UserControllerTest.class
