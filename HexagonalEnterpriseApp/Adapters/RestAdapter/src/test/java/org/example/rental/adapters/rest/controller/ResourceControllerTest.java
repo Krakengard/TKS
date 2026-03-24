@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ResourceController.class)
-@AutoConfigureMockMvc(addFilters = false) // Na razie wyłączamy filtry Security, żeby skupić się na logice API
+@AutoConfigureMockMvc(addFilters = false)
 class ResourceControllerTest {
 
     @Autowired
@@ -32,16 +32,14 @@ class ResourceControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private ResourceUseCase resourceUseCase; // Mockujemy nasz port wejściowy
+    private ResourceUseCase resourceUseCase;
 
     @Test
     void shouldReturnAllResources() throws Exception {
-        // Arrange
         Resource projector = new Resource("Projektor", "Epson", "Sprzęt", 50.0);
         when(resourceUseCase.getAllResources()).thenReturn(List.of(projector)); //
 
-        // Act & Assert
-        mockMvc.perform(get("/api/resources")) // Symulujemy żądanie GET
+        mockMvc.perform(get("/api/resources"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Projektor"))
                 .andExpect(jsonPath("$[0].pricePerHour").value(50.0));
@@ -49,37 +47,32 @@ class ResourceControllerTest {
 
     @Test
     void shouldCreateNewResource() throws Exception {
-        // Arrange
         Resource newResource = new Resource("Laptop", "Dell", "IT", 100.0);
 
-        // Kiedy kontroler wywoła createResource, zwracamy ten sam obiekt, ale z nadanym ID
         when(resourceUseCase.createResource(any(Resource.class))).thenAnswer(invocation -> {
             Resource r = invocation.getArgument(0);
             r.setId(UUID.randomUUID());
             return r;
         }); //
 
-        // Act & Assert
-        mockMvc.perform(post("/api/resources") // Symulujemy żądanie POST
+        mockMvc.perform(post("/api/resources")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newResource)))
 
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").exists()) // Sprawdzamy, czy w odpowiedzi JSON jest pole ID
+                .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").value("Laptop"));
     }
 
     @Test
     void shouldReturnBadRequestWhenCreationFails() throws Exception {
-        // Arrange: Symulujemy, że UseCase wyrzuca błąd (np. brak nazwy)
         Resource badResource = new Resource("", "Opis", "Typ", -10.0);
         when(resourceUseCase.createResource(any())).thenThrow(new IllegalArgumentException("Invalid data")); //
 
-        // Act & Assert
         mockMvc.perform(post("/api/resources")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(badResource)))
 
-                .andExpect(status().isBadRequest()); // Oczekujemy statusu 400 Bad Request
+                .andExpect(status().isBadRequest());
     }
 }

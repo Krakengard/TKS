@@ -27,7 +27,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 
 @WebMvcTest(controllers = AllocationController.class)
-@AutoConfigureMockMvc // Tutaj NIE wyłączamy filtrów, bo potrzebujemy mockować SecurityContext!
+@AutoConfigureMockMvc
 class AllocationControllerTest {
 
     @Autowired
@@ -41,17 +41,15 @@ class AllocationControllerTest {
 
     @Test
     void shouldForbidCustomerCreatingAllocationForAnotherCustomer() throws Exception {
-        // Arrange
+
         UUID targetCustomerId = UUID.randomUUID();
         Customer targetCustomer = new Customer();
-        targetCustomer.setLogin("target_user"); // Klient, NA KTÓREGO robiona jest rezerwacja
-
+        targetCustomer.setLogin("target_user");
         when(userUseCase.getUserById(targetCustomerId)).thenReturn(Optional.of(targetCustomer));
 
         String startTime = LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ISO_DATE_TIME);
         String endTime = LocalDateTime.now().plusDays(2).format(DateTimeFormatter.ISO_DATE_TIME);
 
-        // Act & Assert
         mockMvc.perform(post("/api/allocations")
                         .param("customerId", targetCustomerId.toString())
                         .param("resourceId", UUID.randomUUID().toString())
@@ -60,13 +58,11 @@ class AllocationControllerTest {
                         // Symulujemy zapytanie od "złośliwego" zwykłego klienta, który podał inny login niż targetCustomer
                         .with(user("malicious_user").roles("CUSTOMER"))
                 .with(csrf())
-                // Ponieważ zalogowany użytkownik (malicious_user) robi rezerwację dla innego (target_user) i nie ma roli ADMIN, oczekujemy 401/403
                 ).andExpect(status().isUnauthorized()); // Twój kod rzuca UnauthorizedException
     }
 
     @Test
     void shouldAllowAdminToCreateAllocationForAnyCustomer() throws Exception {
-        // Arrange
         UUID targetCustomerId = UUID.randomUUID();
         Customer targetCustomer = new Customer();
         targetCustomer.setLogin("target_user"); // Klient docelowy
@@ -76,33 +72,26 @@ class AllocationControllerTest {
         String startTime = LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ISO_DATE_TIME);
         String endTime = LocalDateTime.now().plusDays(2).format(DateTimeFormatter.ISO_DATE_TIME);
 
-        // Act & Assert
         mockMvc.perform(post("/api/allocations")
                         .param("customerId", targetCustomerId.toString())
                         .param("resourceId", UUID.randomUUID().toString())
                         .param("startTime", startTime)
                         .param("endTime", endTime)
-                        // Symulujemy zapytanie od Administratora
                         .with(user("admin_user").roles("ADMIN"))
                 .with(csrf())
-                // Administrator ma prawo tworzyć rezerwacje w imieniu innych, więc powinno przejść (status 200 OK)
                 ).andExpect(status().isOk());
     }
 
     @Test
     void shouldReturnConflictWhenDeletingCompletedAllocation() throws Exception {
-        // Arrange
         UUID allocationId = UUID.randomUUID();
-        // Symulujemy, że Delete rzuca IllegalStateException (np. z powodu tego, że rezerwacja się zakończyła)
         doThrow(new IllegalStateException("Cannot delete completed allocation"))
                 .when(allocationUseCase).deleteAllocation(allocationId);
 
-        // Act & Assert
         mockMvc.perform(delete("/api/allocations/" + allocationId)
                         // Symulujemy zalogowanego usera
                         .with(user("admin").roles("ADMIN"))
                 .with(csrf())
-                // Kontroler ma obowiązek złapać IllegalStateException i zamienić to na 409 Conflict
                 ).andExpect(status().isConflict());
     }
 }

@@ -1,3 +1,4 @@
 org\example\rental\adapters\repository\jpa\JpaAllocationRepository.class
-org\example\rental\adapters\repository\jpa\JpaResourceRepository.class
 org\example\rental\adapters\repository\jpa\JpaUserRepository.class
+org\example\rental\adapters\repository\jpa\JpaResourceRepository.class
+org\example\rental\adapters\security\BCryptPasswordEncoderAdapter.class

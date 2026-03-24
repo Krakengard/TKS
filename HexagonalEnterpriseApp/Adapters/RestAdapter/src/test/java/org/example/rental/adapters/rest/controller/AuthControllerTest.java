@@ -23,17 +23,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = AuthController.class)
-// Wyłączamy filtry Spring Security (np. sprawdzanie tokenów) na potrzeby testu samego kontrolera
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
 
     @Autowired
-    private MockMvc mockMvc; // Symuluje klienta wysyłającego zapytania HTTP (np. Postmana)
+    private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper; // Zmienia obiekty Java na JSON
 
-    // Używamy @MockBean (zamiast @Mock), aby Spring wstawił te fałszywe obiekty do swojego kontekstu
     @MockBean
     private AuthenticationManager authenticationManager;
 
@@ -45,32 +43,27 @@ class AuthControllerTest {
 
     @Test
     void shouldReturnTokenAndUserOnSuccessfulLogin() throws Exception {
-        // Arrange
         AuthController.LoginRequest request = new AuthController.LoginRequest();
         request.setLogin("john_doe");
         request.setPassword("password123");
 
-        // 1. Domenowy użytkownik, którego "znajdzie" serwis (dla budowy odpowiedzi JSON)
         Customer mockCustomer = new Customer("john_doe", "John Doe", "john@example.com", "123456789", "123 Main St");
         mockCustomer.setActive(true);
 
         when(userUseCase.getUserByLogin("john_doe")).thenReturn(Optional.of(mockCustomer));
 
-        // 2. TWORZYMY USERA DLA SPRING SECURITY (NAPRAWA BŁĘDU)
         org.springframework.security.core.userdetails.UserDetails springUserDetails =
                 new org.springframework.security.core.userdetails.User(
                         "john_doe",
                         "password123",
-                        new java.util.ArrayList<>() // Puste role na potrzeby testu
+                        new java.util.ArrayList<>()
                 );
 
-        // 3. Wrzucamy do autentykacji UserDetails ze Springa, a nie Customer
         Authentication mockAuth = new UsernamePasswordAuthenticationToken(springUserDetails, null, null);
         when(authenticationManager.authenticate(any())).thenReturn(mockAuth);
 
         when(jwtService.generateToken(any())).thenReturn("fake-super-secret-jwt-token");
 
-        // Act & Assert
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
