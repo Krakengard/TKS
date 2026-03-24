@@ -3,7 +3,7 @@ package org.example.rental.application.service;
 import org.example.rental.domain.exception.BadRequestException;
 import org.example.rental.domain.exception.ResourceNotFoundException;
 import org.example.rental.domain.model.*;
-import org.example.rental.repository.UserRepository;
+import org.example.rental.ports.output.UserRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,10 +14,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UserManager {
+public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepositoryPort userRepository;
 
     @Autowired
     @Lazy

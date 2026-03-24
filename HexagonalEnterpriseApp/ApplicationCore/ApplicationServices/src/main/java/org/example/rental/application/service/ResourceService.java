@@ -1,8 +1,8 @@
 package org.example.rental.application.service;
 
-import org.example.rental.model.Resource;
-import org.example.rental.repository.AllocationRepository;
-import org.example.rental.repository.ResourceRepository;
+import org.example.rental.domain.model.Resource;
+import org.example.rental.ports.output.ResourceRepositoryPort;
+import org.example.rental.ports.output.AllocationRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import java.util.UUID;
 public class ResourceService {
 
     @Autowired
-    private ResourceRepository resourceRepository;
+    private ResourceRepositoryPort resourceRepository;
 
     @Autowired
-    private AllocationRepository allocationRepository;
+    private AllocationRepositoryPort allocationRepository;
 
     public Resource createResource(Resource resource) {
         validateResource(resource);

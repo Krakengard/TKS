@@ -64,11 +64,7 @@
                 <artifactId>RestAdapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>org.example</groupId>
-                <artifactId>SecurityAdapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>-->
+
             <dependency>
                 <groupId>org.example</groupId>
                 <artifactId>Applications</artifactId>

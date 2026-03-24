@@ -4,9 +4,9 @@ import org.example.rental.domain.model.Allocation;
 import org.example.rental.domain.model.Customer;
 import org.example.rental.domain.model.Resource;
 import org.example.rental.domain.model.User;
-import org.example.rental.repository.AllocationRepository;
-import org.example.rental.repository.UserRepository;
-import org.example.rental.repository.ResourceRepository;
+import org.example.rental.ports.output.UserRepositoryPort;
+import org.example.rental.ports.output.ResourceRepositoryPort;
+import org.example.rental.ports.output.AllocationRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Service
-public class AllocationManager {
+public class AllocationService {
 
     @Autowired
-    private AllocationRepository allocationRepository;
+    private AllocationRepositoryPort allocationRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepositoryPort userRepository;
 
     @Autowired
-    private ResourceRepository resourceRepository;
+    private ResourceRepositoryPort resourceRepository;
 
     private final ConcurrentMap<UUID, Object> resourceLocks = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, Object> allocationLocks = new ConcurrentHashMap<>();
