@@ -15,16 +15,9 @@
     <name>ApplicationPorts</name>
 
     <dependencies>
-        <dependency>
+         <dependency>
             <groupId>org.example</groupId>
             <artifactId>DomainModel</artifactId>
-        </dependency>
-
-        <!-- Tests -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

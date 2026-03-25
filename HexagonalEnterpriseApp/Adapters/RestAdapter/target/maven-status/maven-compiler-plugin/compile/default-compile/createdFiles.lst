@@ -1,0 +1,12 @@
+org\example\rental\adapters\rest\controller\AllocationController.class
+org\example\rental\security\JwtAuthenticationFilter.class
+org\example\rental\security\JwsService.class
+org\example\rental\adapters\rest\controller\AuthController$LoginRequest.class
+org\example\rental\adapters\rest\controller\AuthController.class
+org\example\rental\security\ApplicationUser.class
+org\example\rental\adapters\rest\controller\ResourceController.class
+org\example\rental\security\JwtService.class
+org\example\rental\adapters\rest\exception\GlobalExceptionHandler.class
+org\example\rental\adapters\rest\controller\AuthController$ChangePasswordRequest.class
+org\example\rental\adapters\rest\controller\UserController.class
+org\example\rental\security\CustomUserDetailsService.class

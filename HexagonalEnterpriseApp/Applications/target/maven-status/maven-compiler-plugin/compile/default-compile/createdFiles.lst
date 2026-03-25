@@ -1,0 +1,6 @@
+org\example\rental\RentalApplication.class
+org\example\rental\config\WebConfig.class
+org\example\rental\config\DataInitializer.class
+org\example\rental\dto\ResourceManagerDTO.class
+org\example\rental\dto\UserDto.class
+org\example\rental\config\SecurityConfig.class

@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleOtherExceptions(Exception ex) {
+    public ResponseEntity<Object> handleOther(Exception ex) {
         return buildResponse(new RuntimeException(ex.getMessage()), 500);
     }
 }
