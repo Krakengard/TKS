@@ -1,7 +1,6 @@
 package org.example.rental.adapters.repository.jpa;
 
-import org.example.rental.domain.model.Allocation;
-import org.example.rental.port.out.AllocationRepository;
+import org.example.rental.adapters.repository.entity.AllocationEnt;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -10,98 +9,78 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Repository
-public class JpaAllocationRepository implements AllocationRepository {
+public class JpaAllocationRepository {
 
-    private final Map<UUID, Allocation> allocations = new ConcurrentHashMap<>();
+    private final Map<UUID, AllocationEnt> allocations = new ConcurrentHashMap<>();
 
-    @Override
-    public Allocation save(Allocation allocation) {
+
+    public AllocationEnt save(AllocationEnt allocation) {
+
         allocations.put(allocation.getId(), allocation);
         return allocation;
     }
 
-    @Override
-    public Optional<Allocation> findById(UUID id) {
+
+    public Optional<AllocationEnt> findById(UUID id) {
         return Optional.ofNullable(allocations.get(id));
     }
 
-    @Override
-    public List<Allocation> findAll() {
+
+    public List<AllocationEnt> findAll() {
         return new ArrayList<>(allocations.values());
     }
 
-    @Override
+
+    public List<AllocationEnt> findByCustomerId(UUID customerId) {
+
+        return allocations.values().stream()
+                .filter(a -> a.getCustomerId().equals(customerId))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<AllocationEnt> findByResourceId(UUID resourceId) {
+
+        return allocations.values().stream()
+                .filter(a -> a.getResourceId().equals(resourceId))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<AllocationEnt> findConflictingAllocations(UUID resourceId,
+                                                          LocalDateTime startTime,
+                                                          LocalDateTime endTime) {
+
+        return allocations.values().stream()
+                .filter(a -> a.getResourceId().equals(resourceId))
+                .filter(a -> !a.isCompleted())
+                .filter(a -> isOverlapping(startTime, endTime,
+                        a.getStartTime(), a.getEndTime()))
+                .collect(Collectors.toList());
+    }
+
+
+    private boolean isOverlapping(LocalDateTime start1,
+                                  LocalDateTime end1,
+                                  LocalDateTime start2,
+                                  LocalDateTime end2) {
+
+        LocalDateTime effectiveEnd1 = end1 != null ? end1 : LocalDateTime.MAX;
+        LocalDateTime effectiveEnd2 = end2 != null ? end2 : LocalDateTime.MAX;
+
+        return start1.isBefore(effectiveEnd2) && effectiveEnd1.isAfter(start2);
+    }
+
+
     public void delete(UUID id) {
         allocations.remove(id);
     }
 
-    @Override
-    public List<Allocation> findConflictingAllocations(UUID resourceId,
-                                                       LocalDateTime startTime,
-                                                       LocalDateTime endTime) {
-        return allocations.values().stream()
-                .filter(a -> a.getResource().getId().equals(resourceId))
-                .filter(a -> !a.isCompleted())
-                .filter(a -> isTimeOverlapping(startTime, endTime, a.getStartTime(), a.getEndTime()))
-                .collect(Collectors.toList());
-    }
 
-    @Override
-    public List<Allocation> findPastAllocationsByCustomerId(UUID customerId) {
-        LocalDateTime now = LocalDateTime.now();
-        return allocations.values().stream()
-                .filter(a -> a.getCustomer().getId().equals(customerId))
-                .filter(a -> a.isCompleted() ||
-                        (a.getEndTime() != null && a.getEndTime().isBefore(now)))
-                .collect(Collectors.toList());
-    }
+    public Optional<AllocationEnt> findByIdempotencyKey(UUID key) {
 
-    @Override
-    public List<Allocation> findCurrentAllocationsByCustomerId(UUID customerId) {
-        LocalDateTime now = LocalDateTime.now();
         return allocations.values().stream()
-                .filter(a -> a.getCustomer().getId().equals(customerId))
-                .filter(a -> !a.isCompleted())
-                .filter(a -> a.getStartTime().isBefore(now))
-                .filter(a -> a.getEndTime() == null || a.getEndTime().isAfter(now))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Allocation> findByResourceId(UUID resourceId) {
-        return allocations.values().stream()
-                .filter(a -> a.getResource().getId().equals(resourceId))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Allocation> findCurrentAllocationsByResourceId(UUID resourceId) {
-        LocalDateTime now = LocalDateTime.now();
-        return allocations.values().stream()
-                .filter(a -> a.getResource().getId().equals(resourceId))
-                .filter(a -> !a.isCompleted())
-                .filter(a -> a.getStartTime().isBefore(now))
-                .filter(a -> a.getEndTime() == null || a.getEndTime().isAfter(now))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean hasActiveAllocationsForResource(UUID resourceId) {
-        return allocations.values().stream()
-                .anyMatch(a -> a.getResource().getId().equals(resourceId) && !a.isCompleted());
-    }
-
-    @Override
-    public Optional<Allocation> findByIdempotencyKey(UUID idempotencyKey) {
-        return allocations.values().stream()
-                .filter(a -> idempotencyKey.equals(a.getIdempotencyKey()))
+                .filter(a -> key.equals(a.getIdempotencyKey()))
                 .findFirst();
-    }
-
-    private boolean isTimeOverlapping(LocalDateTime start1, LocalDateTime end1,
-                                      LocalDateTime start2, LocalDateTime end2) {
-        LocalDateTime effectiveEnd1 = end1 != null ? end1 : LocalDateTime.MAX;
-        LocalDateTime effectiveEnd2 = end2 != null ? end2 : LocalDateTime.MAX;
-        return start1.isBefore(effectiveEnd2) && effectiveEnd1.isAfter(start2);
     }
 }
